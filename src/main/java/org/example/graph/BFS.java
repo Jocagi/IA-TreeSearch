@@ -6,30 +6,54 @@ public class BFS
 {
     public static<T> Optional<Node<T>> search(T value, Node<T> start)
     {
-        Queue<Node<T>> queue = new ArrayDeque<>();
-        queue.add(start);
+        Queue<NodePath<T>> queue = new ArrayDeque<>();
 
+        NodePath<T> currentValue;
         Node<T> currentNode;
         Set<Node<T>> closed = new HashSet<>();
 
-        //1 - Verificar si puede cnontinuar
+        queue.add(new NodePath<T>(start, new ArrayDeque<>()));
+
+        //1 - Verificar si puede continuar
         while(!queue.isEmpty())
         {
-            currentNode = queue.remove();
+            currentValue = queue.remove();
+            currentNode = currentValue.getNode();
             System.out.println("Visitando el nodo " + currentNode.toString());
 
             //2 - Verificar si se encuentra en la meta
             if(currentNode.getValue().equals(value))
             {
+                printPath(currentValue.getPath(), value);
                 return Optional.of(currentNode);
             }
             else
             {
-                closed.add(currentNode); //3 - Agregar al espacio explorado
-                queue.addAll(currentNode.getNeighbors()); //4 - Nodos sucesores
-                queue.removeAll(closed);
+                //3 - Agregar al espacio explorado
+                closed.add(currentNode);
+                //4 - Nodos sucesores
+                for (var item: currentNode.getNeighbors())
+                {
+                    var traveledNodes = currentValue.getPath();
+                    traveledNodes.add(currentNode);
+                    queue.add(new NodePath<T>(item, traveledNodes));
+                }
+                queue.removeIf(x -> closed.contains(x.getNode()));
             }
         }
+        System.out.println("No se ha encontrado la meta");
         return Optional.empty();
+    }
+
+    private static<T> void printPath(Queue<Node<T>> nodes, T goal)
+    {
+        System.out.println("Camino a la meta:");
+
+        for (var item: nodes)
+        {
+            System.out.print(item.toString() + " -> ");
+        }
+
+        System.out.println(goal.toString());
     }
 }
