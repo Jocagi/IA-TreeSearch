@@ -1,8 +1,6 @@
 package org.example;
 
-import org.example.graph.BFS;
-import org.example.graph.BFSVersion2;
-import org.example.graph.Node;
+import org.example.graph.*;
 
 /**
  * Hello world!
@@ -43,6 +41,7 @@ public class App
         zona1.connect(zona2);
 
         //BFS.search(16, zona21);
-        BFSVersion2.search(16, zona21);
+        //BFSVersion2.search(16, zona21);
+        DFS.search(16, zona21);
     }
 }
