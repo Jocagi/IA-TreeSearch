@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.graph.BFS;
+import org.example.graph.BFSVersion2;
 import org.example.graph.Node;
 
 /**
@@ -41,6 +42,7 @@ public class App
         zona1.connect(zona5);
         zona1.connect(zona2);
 
-        BFS.search(16, zona21);
+        //BFS.search(16, zona21);
+        BFSVersion2.search(16, zona21);
     }
 }
