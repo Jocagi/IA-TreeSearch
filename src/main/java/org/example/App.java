@@ -40,8 +40,8 @@ public class App
         zona1.connect(zona5);
         zona1.connect(zona2);
 
-        //BFS.search(16, zona21);
-        //BFSVersion2.search(16, zona21);
+        BFS.search(16, zona21);
+        BFSVersion2.search(16, zona21);
         DFS.search(16, zona21);
     }
 }
